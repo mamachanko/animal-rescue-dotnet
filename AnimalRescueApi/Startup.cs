@@ -19,7 +19,13 @@ namespace AnimalRescueApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<PageOptions>(Configuration.GetSection(PageOptions.PageSection));
+
             services.AddControllers();
+
+            // Alternatively, use
+            //     services.AddScoped<IAnimalService, AnimalService>();
+            // for an instance that is scoped to the lifetime of a request.
             services.AddSingleton<IAnimalService, AnimalService>();
         }
 
