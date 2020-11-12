@@ -7,17 +7,22 @@ cd animal-rescue
 
 dotnet new gitignore
 
-dotnet new sln --name AnimalRescue
-dotnet new webapi --name AnimalRescueApi --no-https
-dotnet sln AnimalRescue.sln add AnimalRescueApi
-dotnet new xunit --name AnimalRescueApiIntegrationTests
-dotnet sln AnimalRescue.sln add AnimalRescueApiIntegrationTests/
-dotnet add AnimalRescueApiIntegrationTests reference AnimalRescueApi
-
 dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design
 dotnet add package Microsoft.EntityFrameworkCore.Design
 dotnet tool install --global dotnet-aspnet-codegenerator
 dotnet tool update --global dotnet-aspnet-codegenerator
+
+dotnet new sln --name AnimalRescue
+dotnet new webapi --name AnimalRescueApi --no-https
+dotnet sln AnimalRescue.sln add AnimalRescueApi
+
+dotnet new xunit --name AnimalRescueApiTests
+dotnet sln AnimalRescue.sln add AnimalRescueApiTests/
+dotnet add AnimalRescueApiTests reference AnimalRescueApi
+
+dotnet new xunit --name AnimalRescueApiIntegrationTests
+dotnet sln AnimalRescue.sln add AnimalRescueApiIntegrationTests/
+dotnet add AnimalRescueApiIntegrationTests reference AnimalRescueApi
 
 pushd AnimalRescueApi
   dotnet add package Microsoft.EntityFrameworkCore.SqlServer

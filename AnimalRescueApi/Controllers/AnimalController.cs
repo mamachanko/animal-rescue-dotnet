@@ -5,13 +5,14 @@ namespace AnimalRescueApi.Controllers
 {
     [ApiController]
     [Route("/api/animals")]
-    public class AnimalController : Controller
+    public class AnimalController : ControllerBase
     {
         [HttpGet]
         public IEnumerable<Animal> Get() => new[]
         {
-            new Animal("cat", "Not a dog."),
-            new Animal("dog", "Not a cat.")
+            // Create two Animals by using an object initializer with {}
+            new Animal {Name = "cat", Description = "Not a dog."},
+            new Animal {Name = "dog", Description = "Not a cat."}
         };
     }
 }
