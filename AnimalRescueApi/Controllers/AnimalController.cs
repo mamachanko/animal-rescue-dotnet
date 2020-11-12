@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using AnimalRescueApi.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AnimalRescueApi.Controllers
@@ -7,12 +8,14 @@ namespace AnimalRescueApi.Controllers
     [Route("/api/animals")]
     public class AnimalController : ControllerBase
     {
-        [HttpGet]
-        public IEnumerable<Animal> Get() => new[]
+        private readonly IAnimalService _animalService;
+
+        public AnimalController(IAnimalService animalService)
         {
-            // Create two Animals by using an object initializer with {}
-            new Animal {Name = "cat", Description = "Not a dog."},
-            new Animal {Name = "dog", Description = "Not a cat."}
-        };
+            _animalService = animalService;
+        }
+
+        [HttpGet]
+        public List<Animal> Get() => _animalService.GetAnimals();
     }
 }

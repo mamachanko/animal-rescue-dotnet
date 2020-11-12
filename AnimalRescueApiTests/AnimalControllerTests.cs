@@ -1,7 +1,7 @@
-using System;
-using System.Linq;
+using System.Collections.Generic;
 using AnimalRescueApi;
 using AnimalRescueApi.Controllers;
+using AnimalRescueApi.Services;
 using Xunit;
 
 namespace AnimalRescueApiTests
@@ -11,13 +11,29 @@ namespace AnimalRescueApiTests
         [Fact]
         public void Get_ReturnsAnimals()
         {
-            var animalController = new AnimalController();
+            // Arrange
+            var testAnimalService = new TestAnimalService
+            {
+                Animals = new List<Animal>
+                {
+                    new Animal {Name = "TestAnimal", Description = "Not a real animal."}
+                }
+            };
+            var animalController = new AnimalController(testAnimalService);
 
+            // Act
             var response = animalController.Get();
-            
-            Assert.Equal(2, response.Count());
-            Assert.Contains(new Animal { Name = "dog", Description = "Not a cat." }, response);
-            Assert.Contains(new Animal { Name = "cat", Description = "Not a dog." }, response);
+
+            // Assert
+            Assert.Equal(1, response.Count);
+            Assert.Contains(new Animal {Name = "TestAnimal", Description = "Not a real animal."}, response);
         }
+    }
+
+    internal class TestAnimalService : IAnimalService
+    {
+        public List<Animal> Animals { get; set; }
+
+        public List<Animal> GetAnimals() => Animals;
     }
 }
