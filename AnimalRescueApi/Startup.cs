@@ -1,6 +1,8 @@
+using AnimalRescueApi.Data;
 using AnimalRescueApi.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -20,7 +22,10 @@ namespace AnimalRescueApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddSingleton<IAnimalService, AnimalService>();
+            services.AddDbContext<AnimalRescueContext>(
+                options => options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection"))
+            );
+            services.AddScoped<IAnimalService, AnimalService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

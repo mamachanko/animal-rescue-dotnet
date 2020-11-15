@@ -1,14 +1,18 @@
 using System.Collections.Generic;
+using System.Linq;
+using AnimalRescueApi.Data;
 
 namespace AnimalRescueApi.Services
 {
     public class AnimalService : IAnimalService
     {
-        public List<Animal> GetAnimals() => new List<Animal>
+        private readonly AnimalRescueContext _context;
+
+        public AnimalService(AnimalRescueContext context)
         {
-            // Create two Animals by using an object initializer with {}
-            new Animal {Name = "cat", Description = "Not a dog."},
-            new Animal {Name = "dog", Description = "Not a cat."}
-        };
+            _context = context;
+        }
+
+        public List<Animal> GetAnimals() => _context.Animals.ToList();
     }
 }

@@ -32,8 +32,8 @@ namespace AnimalRescueApiIntegrationTests
             );
             JsonAssert.Equal(
                 @"[
-                    {""name"": ""cat"", ""description"": ""Not a dog.""},
-                    {""name"": ""dog"", ""description"": ""Not a cat.""}
+                    {""id"": 1, ""name"": ""Dog"", ""description"": ""Not a cat.""},
+                    {""id"": 2, ""name"": ""Cat"", ""description"": ""Not a dog.""}
                 ]",
                 await response.Content.ReadAsStringAsync()
             );
