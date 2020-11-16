@@ -5,5 +5,6 @@ namespace AnimalRescueApi.Services
     public interface IAnimalService
     {
         List<Animal> GetAnimals();
+        Animal GetAnimal(long id);
     }
 }

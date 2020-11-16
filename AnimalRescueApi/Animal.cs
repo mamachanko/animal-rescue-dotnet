@@ -12,7 +12,7 @@ namespace AnimalRescueApi
 
         public override string ToString()
         {
-            return $"Animal {nameof(Name)}: {Name}, {nameof(Description)}: {Description}";
+            return $"Animal {nameof(ID)}: {ID}, {nameof(Name)}: {Name}, {nameof(Description)}: {Description}";
         }
 
         public override bool Equals(object obj)
@@ -25,7 +25,9 @@ namespace AnimalRescueApi
 
         private bool Equals(Animal other)
         {
-            return Name == other.Name && Description == other.Description;
+            return ID == other.ID
+                   && Name == other.Name
+                   && Description == other.Description;
         }
 
         public override int GetHashCode()
