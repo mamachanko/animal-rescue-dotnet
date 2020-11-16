@@ -25,4 +25,12 @@
     <ProjectReference Include="..\AnimalRescueApi\AnimalRescueApi.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Include="appsettings.integrationtests.json">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>

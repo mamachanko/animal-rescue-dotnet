@@ -1,6 +1,8 @@
+using System.IO;
 using System.Threading.Tasks;
 using AnimalRescueApi;
 using Microsoft.AspNetCore.Mvc.Testing;
+using Microsoft.Extensions.Configuration;
 using Quibble.Xunit;
 using Xunit;
 
@@ -9,6 +11,11 @@ namespace AnimalRescueApiIntegrationTests
     public class IntegrationTests : IClassFixture<WebApplicationFactory<Startup>>
     {
         private readonly WebApplicationFactory<Startup> _factory;
+
+        private readonly string _integrationTestSettings = Path.Combine(
+            Directory.GetCurrentDirectory(),
+            "appsettings.integrationtests.json"
+        );
 
         public IntegrationTests(WebApplicationFactory<Startup> factory)
         {
@@ -19,7 +26,13 @@ namespace AnimalRescueApiIntegrationTests
         public async Task Get_ReturnsAnimals()
         {
             // Arrange
-            var client = _factory.CreateClient();
+            var client = _factory.WithWebHostBuilder(builder =>
+            {
+                builder.ConfigureAppConfiguration((_, configuration) =>
+                {
+                    configuration.AddJsonFile(_integrationTestSettings);
+                });
+            }).CreateClient();
 
             // Act
             var response = await client.GetAsync("/api/animals");

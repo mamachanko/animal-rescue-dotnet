@@ -2,7 +2,6 @@
 
 set -euo pipefail
 
-
 docker run \
   --rm \
   --name animaldb \
@@ -10,4 +9,3 @@ docker run \
   --env POSTGRES_DB=animaldb \
   --env POSTGRES_PASSWORD=secret \
   postgres:12.5
-
