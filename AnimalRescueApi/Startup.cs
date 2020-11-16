@@ -1,4 +1,5 @@
 using AnimalRescueApi.Data;
+using AnimalRescueApi.Filters;
 using AnimalRescueApi.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -25,6 +26,7 @@ namespace AnimalRescueApi
             services.AddDbContext<AnimalRescueContext>(
                 options => options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection"))
             );
+            services.AddSingleton<IStartupFilter, DataStartupFilter>();
             services.AddScoped<IAnimalService, AnimalService>();
         }
 
