@@ -23,8 +23,10 @@ namespace AnimalRescueApiTests
 
             var response = animalController.Get();
 
-            Assert.Equal(1, response.Count);
-            Assert.Contains(new Animal {Name = "TestAnimal", Description = "Not a real animal."}, response);
+            Assert.Equal(
+                new List<Animal> {new Animal {Name = "TestAnimal", Description = "Not a real animal."}},
+                response
+            );
         }
 
         [Fact]
@@ -41,7 +43,8 @@ namespace AnimalRescueApiTests
 
             var response = animalController.GetAnimal(123);
 
-            Assert.Equal(new Animal {ID = 123, Name = "TestAnimal", Description = "Not a real animal."}, response.Value);
+            Assert.Equal(new Animal {ID = 123, Name = "TestAnimal", Description = "Not a real animal."},
+                response.Value);
         }
 
         [Fact]

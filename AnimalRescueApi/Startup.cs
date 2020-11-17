@@ -3,10 +3,10 @@ using AnimalRescueApi.Filters;
 using AnimalRescueApi.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Steeltoe.CloudFoundry.Connector.PostgreSql.EFCore;
 
 namespace AnimalRescueApi
 {
@@ -22,10 +22,8 @@ namespace AnimalRescueApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<AnimalRescueContext>(builder => builder.UseNpgsql(Configuration));
             services.AddControllers();
-            services.AddDbContext<AnimalRescueContext>(
-                options => options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection"))
-            );
             services.AddSingleton<IStartupFilter, DataStartupFilter>();
             services.AddScoped<IAnimalService, AnimalService>();
         }
